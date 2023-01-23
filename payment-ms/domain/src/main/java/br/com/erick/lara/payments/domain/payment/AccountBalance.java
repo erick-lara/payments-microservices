@@ -1,6 +1,5 @@
 package br.com.erick.lara.payments.domain.payment;
 
-import br.com.erick.lara.payments.domain.payment.PaymentStatus;
 
 import java.math.BigDecimal;
 
@@ -28,9 +27,9 @@ public class AccountBalance {
     }
 
     public void setPaymentStatus(){
-        try{
+        try {
             this.validatePayment();
-        } catch (ArithmeticException exception) {
+        } catch (ArithmeticException | IllegalArgumentException exception) {
             this.payment.setStatus(PaymentStatus.PROCESS_FAILED);
         }
     }
