@@ -5,36 +5,24 @@ import java.math.BigDecimal;
 
 public class AccountBalance {
 
-    private BigDecimal accountBalance;
-    private Payment payment;
+    private BigDecimal totalValue;
 
-    public AccountBalance(BigDecimal accountBalance, Payment payment) {
-        this.accountBalance = accountBalance;
-        this.payment = payment;
+    public AccountBalance(BigDecimal totalValue) {
+        this.totalValue = totalValue;
     }
 
-    protected void validatePayment() {
-        if(accountBalance == null){
-            throw new IllegalArgumentException("Account balance must not be null");
-        }
+    public BigDecimal getValue() {
+        return totalValue;
+    }
 
-        if(payment.getPaymentValue().intValue() > this.getAccountBalance().intValue()){
+    public void subtractBalance(BigDecimal value){
+        if(totalValue.intValue() < value.intValue()){
             throw new ArithmeticException("Insufficient funds.");
         }
-
-        this.accountBalance = this.accountBalance.subtract(payment.getPaymentValue());
-        this.payment.setStatus(PaymentStatus.PAYMENT_OK);
+        totalValue = totalValue.subtract(value);
     }
 
-    public void setPaymentStatus(){
-        try {
-            this.validatePayment();
-        } catch (ArithmeticException | IllegalArgumentException exception) {
-            this.payment.setStatus(PaymentStatus.PROCESS_FAILED);
-        }
-    }
-
-    public BigDecimal getAccountBalance() {
-        return accountBalance;
+    public void addBalance(BigDecimal value){
+        totalValue = totalValue.add(value);
     }
 }

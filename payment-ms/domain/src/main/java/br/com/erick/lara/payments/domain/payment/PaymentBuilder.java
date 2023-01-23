@@ -1,13 +1,13 @@
 package br.com.erick.lara.payments.domain.payment;
 
-import br.com.erick.lara.payments.domain.payer.Payer;
-import br.com.erick.lara.payments.domain.payer.PayerBuilder;
+import br.com.erick.lara.payments.domain.payer.UserBuilder;
 
 import java.math.BigDecimal;
 
 public class PaymentBuilder {
     private Value value;
-    private Payer payer;
+    private User payer;
+    private User receiver;
 
     public static PaymentBuilder build(){
         return new PaymentBuilder();
@@ -18,17 +18,30 @@ public class PaymentBuilder {
         return this;
     }
 
-    public PaymentBuilder withPayer(String name, String cpf){
-        this.payer = PayerBuilder
+    public PaymentBuilder withPayer(String name, String cpf, BigDecimal accountBalance){
+        this.payer = UserBuilder
                 .build()
                 .withName(name)
                 .withCpf(cpf)
+                .withAccountBalance(accountBalance)
                 .create();
 
         return this;
     }
 
+    public PaymentBuilder withReceiver(String name, String cpf, BigDecimal accountBalance){
+        this.receiver = UserBuilder
+                .build()
+                .withName(name)
+                .withCpf(cpf)
+                .withAccountBalance(accountBalance)
+                .create();
+
+        return this;
+    }
+
+
     public Payment create(){
-        return new Payment(this.value, this.payer);
+        return new Payment(this.value, this.payer, this.receiver);
     }
 }
