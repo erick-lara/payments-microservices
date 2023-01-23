@@ -1,4 +1,13 @@
 package com.erick.lara.paymentms.usecase.impl;
 
-public class PaymentServiceImpl {
+import com.erick.lara.paymentms.usecase.PaymentService;
+import org.springframework.stereotype.Service;
+
+@Service
+public class PaymentServiceImpl implements PaymentService {
+
+    @Override
+    public void doPayment() {
+        //TODO
+    }
 }

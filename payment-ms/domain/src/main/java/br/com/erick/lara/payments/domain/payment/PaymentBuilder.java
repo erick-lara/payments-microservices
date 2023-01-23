@@ -6,7 +6,6 @@ import br.com.erick.lara.payments.domain.payer.PayerBuilder;
 import java.math.BigDecimal;
 
 public class PaymentBuilder {
-    private long paymentId;
     private Value value;
     private Payer payer;
 
@@ -16,11 +15,6 @@ public class PaymentBuilder {
 
     public PaymentBuilder withValue(BigDecimal value){
         this.value = new Value(value);
-        return this;
-    }
-
-    public PaymentBuilder withId(long value){
-        this.paymentId = value;
         return this;
     }
 
@@ -34,8 +28,7 @@ public class PaymentBuilder {
         return this;
     }
 
-
     public Payment create(){
-        return new Payment(this.paymentId, this.value, this.payer);
+        return new Payment(this.value, this.payer);
     }
 }

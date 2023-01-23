@@ -8,21 +8,17 @@ import java.time.LocalDate;
 
 public class Payment {
 
-    private long paymentId;
     private Value paymentValue;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate paymentDate;
     private Payer payer;
+    private PaymentStatus status;
 
-    public Payment(long paymentId, Value paymentValue, Payer payer) {
-        this.paymentId = paymentId;
+    public Payment(Value paymentValue, Payer payer) {
         this.paymentValue = paymentValue;
         this.paymentDate = LocalDate.now();
         this.payer = payer;
-    }
-
-    public long getPaymentId() {
-        return paymentId;
+        this.status = PaymentStatus.PROCESSING_PAYMENT;
     }
 
     public BigDecimal getPaymentValue() {
@@ -35,5 +31,13 @@ public class Payment {
 
     public Payer getPayer() {
         return payer;
+    }
+
+    public PaymentStatus getStatus() {
+        return status;
+    }
+
+    protected void setStatus(PaymentStatus status) {
+        this.status = status;
     }
 }
